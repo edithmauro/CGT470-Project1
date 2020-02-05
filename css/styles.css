@@ -1,0 +1,370 @@
+#scatterPlot{
+  width: 1000px;
+  height: 550px;
+}
+
+
+h5{
+	text-align: center;
+}
+.andHeader{
+  font-size: 40px;
+}
+
+#donutChart{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.authors{
+    margin-top: 0px;
+}
+.header{
+    margin-top: 7%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
+    letter-spacing: 0.05em;
+}
+
+.subHeader{
+    color: darkgray;
+    text-align: center;
+}
+
+.sectionHeader, .imageHeader{
+    font-size: 40px;
+}
+
+.thumbnail{
+    width: 300px;
+    display: block;
+    float: left;
+
+}
+
+.thumbnailCaption{
+    width: 300px;
+    display: block;
+    float:right;
+   font-size: 1rem;
+}
+
+.authors{
+    height: 500px;
+    display: block;
+    margin-top: 150px;
+}
+
+.imageHeader{
+    text-decoration: underline;
+	margin-left: 1%;
+}
+
+.sectionHeader {
+    margin-top: 3%;
+    text-decoration: underline;
+}
+
+.footerText{
+    text-align: center;
+    color: white;
+    background-color: gray;
+    padding: 1%;
+}
+
+.btn{
+    background-color: slategray;
+    color: white;
+}
+
+.singleFooter{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.singleFooterBody{
+  margin-bottom: 100px;
+}
+
+/*ABOUT PAGE*/
+h3 {
+    text-align: center;
+  }
+
+ /* .bigbody {
+  } 
+*/
+
+  .biocontainer {
+    margin-bottom: 3%;
+  }     
+
+ .imgcontainer {
+    position: relative;
+    width: 50%;
+    margin-left: 25%;
+  }
+
+  .bioimage {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .biooverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgba(44, 47, 51, 0.8);
+  }
+
+  .imgcontainer:hover .biooverlay {
+    opacity: 1;
+  }
+
+  .biotext {
+    color: white;
+    font-size: 1.1vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+.county-borders {
+  fill:none;
+  stroke: black;
+  stroke-width: 1px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+
+#usa_map{
+	/*width : 900px;
+	height : 800px;*/
+	display: inline;
+}
+
+#state_map{
+	/*width : 100px;
+	height : 800px;*/
+	display: inline;
+}
+
+
+/* Tooltip CSS */
+.d3-tip {
+line-height: 1.5;
+font-weight: 400;
+font-family:"avenir next", Arial, sans-serif;
+padding: 6px;
+background: rgba(0, 0, 0, 0.6);
+color: white;
+border-radius: 1px;
+pointer-events: none;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 8px;
+  width: 100%;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  pointer-events: none;
+
+}
+
+/* Northward tooltips */
+.d3-tip.n:after {
+  content: "\25BC";
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+  text-align: center;
+}
+
+/* Eastward tooltips */
+.d3-tip.e:after {
+  content: "\25C0";
+  margin: -4px 0 0 0;
+  top: 50%;
+  left: -8px;
+}
+
+/* Southward tooltips */
+.d3-tip.s:after {
+  content: "\25B2";
+  margin: 0 0 1px 0;
+  top: -8px;
+  left: 0;
+  text-align: center;
+}
+
+/* Westward tooltips */
+.d3-tip.w:after {
+  content: "\25B6";
+  margin: -4px 0 0 -1px;
+  top: 50%;
+  left: 100%;
+}
+
+/*MAP CONTAINERS*/
+#usa_map{
+	/*width : 2000px;
+	height : 800px;*/
+	display: inline;
+}
+
+#state_map{
+	/*width : 500px;
+	height : 800px;*/
+	display: inline;
+}
+
+.mapVisual{
+margin-left: 100px;
+}
+
+.subSection{
+	font-style:italic;
+}
+
+.noMargin{
+  margin: 0px !important;
+}
+
+.intDescription{
+  font-size: 10pt;
+  color: #333232;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.underline{
+  text-decoration: underline;
+}
+
+.boldText{
+  font-weight: bold;
+  font-size: 12pt;
+}
+
+.legend {
+  padding: 10px;
+  color: white;
+  text-align: center;
+}
+
+/*COUTY MAP LEGEND*/
+#zero{
+  background-color: #DEEBF7;
+  color: black !important;
+}
+
+#eight{
+  background-color: #C5DAEF;
+}
+#sixteen{
+  background-color: #9DCAE0;
+}
+#twentyFour{
+  background-color: #6AAED6;
+}
+#thirtyTwo{
+background-color: #4192C5;
+}
+#forty{
+  background-color: #2071B5;
+}
+#fortyEight{
+  background-color: #06519C;
+}
+#fiftySix{
+  background-color: #06519C;
+}
+
+#sixtyFour{
+  background-color: #092F6B;
+}
+
+/*Sex Education Mandated*/
+.noData{
+  background-color: #D3D3D3;
+  color: black !important;
+}
+
+.notMandated{
+  background-color: #ADD8E6;
+  color: black !important;
+}
+
+.mandated{
+  background-color: #4169E1;
+}
+
+/*Abstinence Legend*/
+.stressed{
+  background-color: tomato;
+}
+
+.covered{
+  background-color: #4169E1;
+}
+
+.notIncluded{
+  background-color: #ADD8E6;
+  color: black !important;
+}
+
+.usaMapLegends{
+  margin-left: 50px;
+}
+.smallUSALegends{
+  margin-left:20px;
+}
+
+.legendCenter{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+input{
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+.firstButton{
+  margin-left: 5%;
+}
+
+#option { 
+display: inline-block;
+}
+
+.refcontainer{
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
+

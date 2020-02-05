@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+    Linked to DataSets
+
+    https://catalog.data.gov/dataset/teen-birth-rates-for-age-group-15-19-in-the-united-states-by-county
+    https://www.guttmacher.org/state-policy/explore/sex-and-hiv-education
+    
+    Research Reference
+    https://www.americashealthrankings.org/explore/annual/measure/ChildPoverty/state/GA
+
+
+-->
+
+<head>
+		<!-- Required meta tags -->
+    <link rel='stylesheet' type='text/css' href="css/styles.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!--- Google charts script -->
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <div id="chart_div"></div>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+  <!--scripts files-->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/topojson.v2.min.js"></script>
+<script src="http://d3js.org/d3.v4.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="https://d3js.org/d3-color.v1.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="d3-tip.js"></script>
+<script src="SVG.js"></script>
+<script src="test.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
+    
+    <title>Children in Poverty</title>
+  </head>
+  <body>
+          <!-- Navigation -->
+          <nav class="navbar navbar-masthead navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="index.html">Children in Poverty, Single Parent Households, and Education Level</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home</a>
+                  </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="researchers.html">Researchers</a>
+                      </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="references.html">References</a>
+                    </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+    <div class = "container-fluid">
+        <h1 class = "header">Children in Poverty, Single Parent Households, <br><span class = "andHeader">and</span> Education Level</h1>
+        <hr>
+        <h2 class = "subHeader">Is there a correlation to single parent households and children in poverty? <br> What is the education level of those parents? What is Indiana doing as a result?</h2>
+        <hr>
+    <h5> <strong>CGT 470 Indy Big Data Project |  Dr. Victor Chen | Chance Alexander, Pablo Moore, Edith Mauro, Kanak Dhawan</strong></h5>
+    <hr>
+  </div>
+  <div class = "container">
+        <h3 class = "sectionHeader"><u>Interactive Map and Scatterplot</u></h3>
+		
+		<p class = "intDescription"><span class = "underline">Interactive Elements</span>: Hover over any county on the Indiana county map to view the data values and the name of the county. On hover, the color of the county changes to indicate which county you will click and reveals a tool tip displaying the data. Click on any of the counties to highlight the county data on a scatterplot. Hovering a data point on the scatterplot will also highlight the selected county on the Indiana county map.  Click on the buttons to toggle the dataset desired<br><u><strong>Note that the values used are for 2010 only</strong></u></br></p>
+    
+    <div id="tooltip" class="hidden">
+      <p><span id="label"></span></p>
+    </div>
+    
+<div class = "buttonGroup">
+<div id = "option">
+ <input class = "dataButton"
+     name = "updateButton"
+     type = "button"
+     value = "Data Set 1"
+     onclick = "mapShow1()" />
+</div>
+
+<div id = "option">
+ <input class = "dataButton"
+    name = "updateButton"
+     type = "button"
+     value = "Data Set 2"
+     onclick = "mapShow2()" />
+</div>
+
+</div>
+
+<div class = "mapChart"> </div>
+<div class = "barchart"> </div>
+		
+	<!----	<img src= "images\indycounty.jpg"><img src= "images\scatterplotsample.png">-->
+
+  </div>
+      <br>
+ <!---     <div class = "container row col-md-12">
+      <div id = "option" class = "col-md-3 firstButton">
+      <input name = "updateButton"
+          type = "button"
+          value = "Click to View Sex Education Data"
+          onclick = "sexEd()" />
+      </div>
+
+      <div id = "option" class = "col-md-3">
+      <input name = "updateButton"
+          type = "button"
+          value = "Click to View Abstinence Data"
+          onclick = "abstinence()" />
+      </div>
+	  <div id = "option" class = "col-md-3">
+      	<input name = "updateButton"
+          type = "button"
+          value = "Click to View Birth Rate Data"
+          onclick = "birthRates()" />
+      </div>
+
+    </div> <br>
+
+    <div class = "container-fluid row">
+      <table class = "usaMapLegends">
+          <tr>
+            <th class = "underline" colspan="3">USA Map - Sex Education Mandated</th>
+          </tr>
+            <tr>
+              <td class = "noData legend" >No Data</td>
+              <td class = "mandated legend">Is Mandated</td>
+              <td class = "notMandated legend">Not Mandated</td>
+            </tr>
+        </table>
+
+        <table class = "usaMapLegends">
+        <tr>
+            <th class = "underline" colspan="3">USA Map - Abstinence Education</th>
+          </tr>
+            <tr>
+              <td class = "noData legend">No Data</td>
+              <td class = "stressed legend">Stressed</td>
+              <td class = "covered legend">Covered</td>
+              <td class = "notIncluded legend">Not Included</td>
+            </tr>
+        </table>
+
+        <table class = "smallUSALegends">
+          <tr>
+            <th class = "underline" colspan="9">Teen Birth Rate Legend</th>
+          </tr>
+            <tr>
+             <td id = "zero" class = legend>0</td>
+              <td id = "eight" class = legend>8</td>
+              <td id = "sixteen" class = legend>16</td>
+              <td id = "twentyFour" class = legend>24</td>
+              <td id = "thirtyTwo" class = legend>32</td>
+              <td id = "forty" class = legend>40</td>
+              <td id = "fortyEight" class = legend>48</td>
+              <td id = "fiftySix" class = legend>56</td>
+              <td id = "sixtyFour" class = legend>64+</td>
+            </tr>
+        </table>
+        
+
+      </div>
+-->
+  <div class="row container-fluid">
+      <div class = "mapVisual" id="usa_map"></div>	
+      <div id="indiana_map"></div>
+  </div>
+
+    <!--Donut Chart-->
+
+        <br>
+
+      <div class = "container">
+        <p>general info <span class = "boldText">big facts </span> lil facts</p>
+
+        <hr>
+        <h3 class = "sectionHeader">Correlation Between Children in Poverty, Single Parent Households, and Education Level</h3>
+
+        <p class = "intDescription"><span class = "underline">Interactive Elements</span>: hover over the piece of the donut chart you would like to reveal information about.  On hover/click, the piece of the donut chart will reveal a tool tip, displaying data.
+
+
+    
+      <p>
+        Using a donut chart to analyze the relationship between children in poverty, single parent households, and education level in 2010 helps us identify correlations between the data.  <span class = "boldText">INSERT DATA INSIGHT HERE.</span>
+      </p>
+
+      <!--****DONUT CHART******-->
+<div class = "container-fluid row">
+      <div id="donutChart" class = "col-md-6" style="height: 200px; width: 100%">
+        <script type="text/javascript">
+          google.charts.load("current", {packages:["corechart"]});
+          google.charts.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Task', 'Hours per Day'],
+              ['Work',     11],
+              ['Eat',      2],
+              ['Commute',  2],
+              ['Watch TV', 2],
+              ['Sleep',    7]
+            ]);
+    
+            var options = {
+              title: 'My Daily Activities',
+              pieHole: 0.4,
+            };
+    
+            var chart = new google.visualization.PieChart(document.getElementById('donutChart'));
+            chart.draw(data, options);
+          }
+        </script>
+        </div>
+
+        <div id="donutChart2" class = "col-md-6" style="height: 200px; width: 100%">
+          <script type="text/javascript">
+            google.charts.load("current", {packages:["corechart"]});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+              var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['Work',     11],
+                ['Eat',      2],
+                ['Commute',  2],
+                ['Watch TV', 2],
+                ['Sleep',    7]
+              ]);
+      
+              var options = {
+                title: 'My Daily Activities',
+                pieHole: 0.4,
+              };
+      
+              var chart = new google.visualization.PieChart(document.getElementById('donutChart2'));
+              chart.draw(data, options);
+            }
+          </script>
+          </div>
+
+
+</div>
+  
+
+      
+
+	  <!---<img src= "images\donutchartsample.jpg"><img src= "images\donutchartsample.jpg"><img src= "images\donutchartsample.jpg"><img src= "images\donutchartsample.jpg">-->
+
+      <hr>
+		 
+		  <!--*** EDUCATION MANDATED? ***-->
+
+<h3 class = "sectionHeader">Indiana's Current System to Help Children in Poverty</h3>
+
+<p class = "intDescription"><span class = "underline">Interactive Elements</span>: LIST INTERACTIVE ELEMENTS HERE IF WE GO WITH ANOTHER VIZ
+
+
+<div class = "row">
+	<h3 class="subSection">How the State of Indiana Supports High Need Schools</h3>
+		<p>The federal poverty rate for school-age children is declining in Indiana, but this could be due to lawmakers undercounting high-need students.  Prior to 2015, Indiana calculated school funding based on students who qualify for free and reduced lunch.  Since 2015, Indiana lawmakers decided to calculate school funding by using the number of students who receive food stamps, welfare, or are in foster care. <br>This decision has cut funding from higher-need schools by 30% since 2015, with new school funding being spread across districts, including wealthier cities such as Carmel and Zionsville.<br>  <span class = "underline">It is important to note that the values used for these visualizations (IF WE USE MORE) are from 2010 alone.</span></p>
+	<h3 class="subSection">The Community Eligibility Initiative</h3>
+		<br><p>The state of Indiana is starting to adopt the community eligibility initiative as of 2019, which allows all students in low-income schools to receive free lunch, regardless of household income. Although this is a step in the right direction, the state of Indiana is likely losing money by providing free lunch to students who are not in need for 180 days out of the year.  <strong>I don't know what stance we want to take on this so let's talk about this section as a group</strong></p>
+	<h3 class="subSection">Why This Matters</h3>
+		<br><p>Mothers living in low-income neighborhoods are more likely than other mothers to give birth prematurely and have low birthweight babies <br>Obesity, asthma, and emergency room visits were more common among children in poverty compared with those not in poverty in 2014 (40, 30, and 90 percent more common, respectively).<br><br>As impoverished children grow up, they are more likely to engage in risky or unhealthy behaviors, such as smoking cigarettes. They are less likely to complete high school and some studies show an increased risk of teen pregnancy.<br><br>Obesity, risk factors for cardiovascular disease, metabolic syndrome, and premature mortality have been found to be associated with low socioeconomic status during childhood. Childhood poverty has been linked to difficulty regulating emotions, which is directly linked to the development of mental health conditions later in life, regardless of adult income status.<br><br>Living in poverty affects a child's abillity to succeed in school and may impact potential future earnings. One estimate of the social cost of childhood poverty, including lost potential earnings and costs of poor health, totalled $1.03 billion annually in the United States.</p>
+	<h3 class="subSection">Who is Affected?</h3>
+		<br><p><strong>Racial and ethnic minorities:</strong><br>Compared with non-Hispanic white and Asian children, disproportionately more black, American Indian, and Hispanic children live below the federal poverty threshold, with more Hispanic children living in poverty than any other racial group in 2017.</p>
+		<br><p><strong>Children of single mothers</strong><br>In 2017, 65.8 percent of poor children were in single-parent households, with 59.5 in single-mother households compared with 8.3 percent in single-father households. 33.5 percent of poor children were in households with married couples.</p>
+
+
+
+    <!--Bar chart 2-->
+ 
+	<div class = "col-md-6 col-sm-12 col-lg-6">
+
+  </div>
+          <br>
+          
+       <!---- <div class = "legendCenter">
+          <table>
+            <tr>
+            </tr>
+              <tr>
+                <td class = "legend noData">Not Specified</td>
+                <td class = "legend stressed">Not Mandated</td>
+                <td class = "legend mandated">Is Mandated</td>
+              </tr>
+          </table>
+        </div>-->
+
+	</div>
+
+<div class = "col-md-12 row">
+<!--<h3 class = "subSection">Is Abstinence a Content Requirement?</h3>
+<p>The bar graphs below show the five states with the highest and lowest birth rates. The color of the bar represents whether that state's sexual education program stresses abstinence, mentions abstinence, or does not require abstinence. <span class = "underline">It is important to note that the values used for the birth rate are averages from 2003 to 2015.</span></p>
+	<div class = "col-md-6 col-sm-12 col-lg-6">
+
+		<br>
+      <h4>5 Highest Teenage Birth Rates</h4>
+          <div id="barChart4" class = "container" style="height: 500px; width: 100%;">
+              <script type = "text/javascript">
+              google.charts.load('current', {packages: ['corechart', 'bar']});
+              google.charts.setOnLoadCallback(drawBasic);
+        
+              function drawBasic() {
+        
+              var data = new google.visualization.DataTable();
+              /*data.addColumn('string', 'State');
+              data.addColumn('number', 'Birth Rate');
+			  //data.addColumn({ role: 'style' });
+        
+              data.addRows([
+              ["Mississippi", 59.98], 
+              ["Texas", 58.44], 
+              ["Arkansas", 56.80], 
+              ["Oklahoma", 54.91], 
+              ["Arizona", 54.50]
+              ]);
+      			*/
+				  
+			 var data = google.visualization.arrayToDataTable([
+				['State', 'Birth Rate', { role: 'style' } ],
+				['Mississippi', 59.98, 'color: tomato'],
+				['Texas', 58.44, 'color: tomato'],
+				['Arkansas',  56.80, 'color: tomato'],
+				['Oklahoma',  54.91, 'color: tomato'],
+				['Arizona', 54.50, 'color: tomato']
+			  ]);
+        
+              var chart = new google.visualization.BarChart(document.getElementById('barChart4'));
+        
+              var options = {
+                hAxis: {
+                  title: 'Top 5 Birth Rate',
+                  format: '##'
+                },
+                vAxis: {
+                  title: 'State'
+                },
+                legend: {position: 'none'},
+                width: '100%',
+                chartArea: {'left': 150, 'top': 10, 'right': 30, 'bottom': 60},
+				
+				//colors: ['green','red', 'white', 'red', 'red'],
+
+
+              };
+
+
+              chart.draw(data, options);
+            }	
+            
+
+              </script>
+			 
+          </div>
+
+		  </div>
+ 
+ 
+	<div class = "col-md-6 col-sm-12 col-lg-6">
+		   <br>
+	  <h4>5 Lowest Teenage Birth Rates</h4>
+		<div id="barChart3" class = "container" style="height: 500px; width: 100%;">
+              <script type = "text/javascript">
+              google.charts.load('current', {packages: ['corechart', 'bar']});
+              google.charts.setOnLoadCallback(drawBasic);
+        
+              function drawBasic() {
+        
+             /* var data = new google.visualization.DataTable();
+              data.addColumn('string', 'State');
+              data.addColumn('number', 'Birth Rate');
+        
+              data.addRows([
+              ["Connecticut", 10.13], ["Rhode Island", 10.18], ["Massachusetts", 10.73], ["New Hampshire", 12.55], ["New Jersey", 14.05]
+              ]);*/
+				  
+			 var data = google.visualization.arrayToDataTable([
+				['State', 'Birth Rate', { role: 'style' } ],
+				['Connecticut', 10.13, 'color: #D3D3D3'],
+				['Rhode Island', 10.18, 'color: tomato'],
+				['Massachusetts',  10.73, 'color: #D3D3D3'],
+				['New Hampshire',  12.55, 'color: #3266CC'],
+				['New Jersey', 14.05, 'color: tomato']
+			  ]);
+        
+        
+              var options = {
+                hAxis: {
+                  title: 'Bottom 5 Birth Rate',
+                  format: '##'
+                },
+                vAxis: {
+                  title: 'State'
+                },
+                legend: {position: 'none'},
+                width: '100%',
+                chartArea: {'left': 150, 'top': 10, 'right': 30, 'bottom': 60},
+              };
+        
+              var chart = new google.visualization.BarChart(document.getElementById('barChart3'));
+        
+              chart.draw(data, options);
+            }	
+              </script>
+			
+          </div>
+
+    </div>
+          <br>        
+        <div class = "legendCenter">
+            <table>
+              <tr>
+                <th  colspan="3">Abstinence Education Type</th>
+              </tr>
+                <tr>
+                  <td class = "legend noData">Not Specified</td>
+                  <td class = "legend stressed">Abstinence Stressed</td>
+                  <td class = "legend mandated">Abstinence Not Covered</td>
+                </tr>
+            </table>
+          </div>
+          <br> 
+        <p style = "margin-top: 30px;">The bar charts above reveal similar insights to the two other bar charts shown above. Of the five states with the highest teen birth rates, all five of them stress abstinence in their sexual education program. This is very interesting as one would hypothesize that stressing abstinence would result in lower teen birth rates; however, <span class = "boldText">the bar charts above show the exact opposite of this.</span> </p>
+  -->
+      </div>		  
+		  
+		  
+
+  </div>
+
+
+
+<br>
+
+
+    </body>
+
+    <footer>
+      <div class = "footerText">
+      <p class = "noMargin">Chance Alexander | Kanak Dhawan | Edith Mauro | Pablo Moore</p>
+      <p class = "noMargin">Indy Big Data Challenge</p>
+      </div>
+    </footer>
+
+
+</html>
